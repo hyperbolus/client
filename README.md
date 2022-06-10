@@ -1,5 +1,13 @@
 # geodesic
 
+wip
+
+
+
+
+
+# Ignore the rest of this
+
 ## Project setup
 ```
 npm install

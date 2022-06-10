@@ -1,0 +1,12 @@
+@font-face {
+    font-family: tty;
+    src: url('assets/web_ibm_vga_8x16.woff')
+}
+
+.tty {
+    font-family: tty, monospace;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

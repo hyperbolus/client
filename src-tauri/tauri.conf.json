@@ -1,0 +1,135 @@
+{
+  "package": {
+    "productName": "hyperbolus",
+    "version": "0.2.0"
+  },
+  "build": {
+    "distDir": "Set automatically by Vue CLI plugin",
+    "devPath": "Set automatically by Vue CLI plugin",
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "withGlobalTauri": true
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "Hyperbolus",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "resources": [],
+      "externalBin": [
+        "blackjack-1.2.1"
+      ],
+      "copyright": "BirdCafe",
+      "category": "DeveloperTool",
+      "shortDescription": "",
+      "longDescription": "",
+      "deb": {
+        "depends": []
+      },
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "",
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "providerShortName": null,
+        "entitlements": null
+      },
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://hyperbol.us/api/releases/latest"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDYzODJDNDFFQzA0OEEwNjUKUldSbG9FakFIc1NDWXhCNXNyekR0dDBPRDFrL01TbjlMZVFvWGlBZlZpbFNhS1lrYk9yS0tUZmYK",
+      "dialog": true
+    },
+    "allowlist": {
+      "fs": {
+        "all": true,
+        "scope": [
+          "$APP/*",
+          "$DATA/*",
+          "$LOCALDATA/*",
+          "$DESKTOP/*",
+          "**"
+        ]
+      },
+      "process": {
+        "all": true
+      },
+      "path": {
+        "all": true
+      },
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": [
+          "http://127.0.0.1:2087/*",
+          "http://www.boomlings.com/database/*"
+        ]
+      },
+      "shell": {
+        "execute": true,
+        "open": ".*",
+        "sidecar": true,
+        "scope": [
+          {
+            "name": "get-hash-gd",
+            "cmd": "Get-FileHash",
+            "args": true
+          },
+          {
+            "name": "blackjack-1.2.1",
+            "sidecar": true,
+            "args": true
+          }
+        ]
+      },
+      "window": {
+        "all": true
+      },
+      "dialog": {
+        "all": true,
+        "open": true,
+        "save": true
+      },
+      "protocol": {
+        "assetScope": [
+          "**"
+        ],
+        "asset": true
+      }
+    },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
+    "windows": [
+      {
+        "title": "Hyperbolus",
+        "width": 900,
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": false,
+        "transparent": false,
+        "label": "main"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+    }
+  }
+}

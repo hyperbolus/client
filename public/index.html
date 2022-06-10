@@ -1,17 +1,71 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    <script>
+        window.socket = new WebSocket('ws://localhost:9001');
+
+        window.socket.addEventListener('open', (e) => {
+            e.target.send('Hello Server!');
+        });
+
+        window.socket.addEventListener('message', (e) => {
+            console.log('Message from server:', e.data);
+        });
+
+
+        // Even though this is super clever and I am a genius for thinking
+        // of it, there are a bit more caveats than I care to deal with
+        /*
+        window.nativeConsoleLog = console.log
+        window.nativeConsoleWarn = console.warn
+        window.nativeConsoleError = console.error
+        window.nativeConsoleDebug = console.debug
+        window.nativeConsoleClear = console.debug
+        window.consoleData = [];
+        console.log = (data) => {
+            updateConsole(data);
+            window.nativeConsoleLog(data);
+        };
+        console.warn = (data) => {
+            updateConsole(data);
+            window.nativeConsoleWarn(data);
+        };
+        console.error = (data) => {
+            updateConsole(data);
+            window.nativeConsoleError(data);
+        };
+        console.debug = (data) => {
+            updateConsole(data);
+            window.nativeConsoleDebug(data);
+        };
+        console.clear = (data) => {
+            updateConsole(data, true);
+            window.nativeConsoleClear();
+        };
+        function updateConsole(data, clear) {
+            if (clear) {
+                window.consoleData = [];
+            } else{
+                window.consoleData.push(data);
+            }
+            document.querySelectorAll(`[data-console]`).forEach((e) => {
+                e.innerText = window.consoleData.join('\n');
+                e.scrollTop = e.scrollHeight;
+            })
+        }*/
+    </script>
+</head>
+<body style="overscroll-behavior: none;">
+<noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+</noscript>
+<div id="app" class="opacity-0"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>

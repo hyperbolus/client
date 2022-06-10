@@ -1,0 +1,19 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "errno": 1,
+    "code": "ELIFECYCLE",
+    "pkgid": "geodesic@0.1.0",
+    "stage": "tauri:build",
+    "script": "vue-cli-service tauri:build",
+    "pkgname": "geodesic",
+    "err": {
+      "name": "pnpm",
+      "message": "geodesic@0.1.0 tauri:build: `vue-cli-service tauri:build`\nExit status 1",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: geodesic@0.1.0 tauri:build: `vue-cli-service tauri:build`\nExit status 1\n    at EventEmitter.<anonymous> (C:\\Users\\ditto\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@7.1.8\\node_modules\\pnpm\\dist\\pnpm.cjs:106976:20)\n    at EventEmitter.emit (node:events:394:28)\n    at ChildProcess.<anonymous> (C:\\Users\\ditto\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@7.1.8\\node_modules\\pnpm\\dist\\pnpm.cjs:93542:18)\n    at ChildProcess.emit (node:events:394:28)\n    at maybeClose (node:internal/child_process:1067:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)"
+    }
+  }
+}
