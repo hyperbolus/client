@@ -1,14 +1,18 @@
 <template>
   <layout-standard>
     <template v-if="profile != null && posts != null">
-      <h1 class="font-bold text-4xl mb-2">{{ profile.username }}</h1>
-      <div class="flex flex-row space-x-2">
-        <span>Stars: {{ profile.stars }}</span>
-        <span>Diamonds: {{ profile.diamonds }}</span>
-        <span>User Coins: {{ profile.userCoins }}</span>
-        <span>Coins: {{ profile.coins }}</span>
-        <span>Demons: {{ profile.demons }}</span>
-        <span>Creator Points: {{ profile.cp }}</span>
+      <div class="flex gap-2">
+        <div>
+          <h1 class="font-bold text-4xl mb-2">{{ profile.username }}</h1>
+          <div class="flex flex-row space-x-2">
+            <span>Stars: {{ profile.stars }}</span>
+            <span>Diamonds: {{ profile.diamonds }}</span>
+            <span>User Coins: {{ profile.userCoins }}</span>
+            <span>Coins: {{ profile.coins }}</span>
+            <span>Demons: {{ profile.demons }}</span>
+            <span>Creator Points: {{ profile.cp }}</span>
+          </div>
+        </div>
       </div>
       <div class="flex flex-row gap-2">
         <div class="w-1/2">
@@ -56,15 +60,15 @@ export default {
     }
   },
   async beforeMount() {
-    await fetch("https://gdbrowser.com/api/profile/" + this.$route.params.name)
+    await fetch("https://browser.gdps.io/api/profile/" + this.$route.params.name)
         .then(res => res.json())
         .then(data => this.profile = data);
 
-    await fetch("https://gdbrowser.com/api/comments/" + this.profile.accountID + "?type=profile")
+    await fetch("https://browser.gdps.io/api/comments/" + this.profile.accountID + "?type=profile")
         .then(res => res.json())
         .then(data => this.posts = data);
 
-    await fetch("https://gdbrowser.com/api/search/" + this.profile.playerID + "?user")
+    await fetch("https://browser.gdps.io/api/search/" + this.profile.playerID + "?user")
         .then(res => res.json())
         .then(data => this.levels = data);
   }

@@ -1,34 +1,60 @@
 <template>
   <Splash v-if="!doneLoading" @done="doneLoading = true"/>
-  <div id="client" v-else class="flex flex-col">
-    <div v-if="config.titlebar" data-tauri-drag-region class="z-20 dark:bg-neutral-900 bg-neutral-50 flex flex-row text-neutral-700 dark:text-neutral-400 justify-between w-full fixed select-none border-b border-b-neutral-200 dark:border-b-neutral-800">
-      <div class="flex flex-row items-center">
+  <div id="client" v-else class="y">
+    <div id="vault" style="background: linear-gradient(#004A63, #00222D); transform: translateY(-100vh); transition: transform 0.4s ease-in-out;" class="pointer-events-none opacity-0 y items-center p-8 h-screen w-screen z-[35] fixed">
+      <audio id="vault_audio" :src="require('@/assets/gd/mus.mp3')" loop></audio>
+      <img class="h-10 my-4" alt="vault" :src="require('@/assets/gd/vault.png')"/>
+      <input @keydown.enter="answerVault" ref="vaultinput" class="text-white p-2 rounded-lg border-0 focus:ring-0 bg-black bg-opacity-50" type="text"/>
+      <div @click="answerVault" class="y items-center scale-75 hover:scale-100 pointer-events-none" style="transition: all 0.25s cubic-bezier(.1, 1.97, 0.38, 0.25);">
+        <img class="w-1/2 pointer-events-auto" alt="vaultkeeper" :src="require('@/assets/gd/GJ_secretLock2_001.png')"/>
+        <img class="w-1/4 pointer-events-auto -mt-9 -z-10" alt="vaultlock" :src="require('@/assets/gd/GJ_secretLock2_2_001.png')"/>
+      </div>
+      <button-round @click="toggleVault">Close Vault</button-round>
+    </div>
+    <div id="feedback" style="transform: translateX(100vw); transition: transform 0.5s ease-in-out;" class="pointer-events-none opacity-0 y items-center p-8 h-screen w-screen z-[36] bg-blue-300 fixed">
+
+      <button-round @click="toggleFeedback">Close Feedback</button-round>
+    </div>
+    <div v-if="config.titlebar" data-tauri-drag-region class="z-40 dark:bg-neutral-900 bg-neutral-50 x text-neutral-700 dark:text-neutral-400 justify-between w-full fixed select-none border-b border-b-neutral-200 dark:border-b-neutral-800">
+      <div class="x items-center">
         <!-- Back Button -->
-        <svg @click="$router.back()" xmlns="http://www.w3.org/2000/svg" class="px-1 h-6 w-6 dark:hover:text-white border-r border-r-neutral-200 dark:border-r-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg @click="back" xmlns="http://www.w3.org/2000/svg" class="px-1 h-6 w-6 dark:hover:text-white border-r border-r-neutral-200 dark:border-r-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
         <!-- Settings Button -->
         <div @mouseover="menuMode = 2" @mouseleave="menuMode = 0">
-          <div class="flex flex-row items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
+          <div class="x items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="px-1 h-6 w-6 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
             </svg>
           </div>
-          <div v-if="menuMode === 2" class="flex flex-col text-sm z-20 bg-neutral-50 dark:bg-neutral-900 top-6 absolute border border-neutral-200 dark:border-neutral-800">
-            <span @click="menuMode = 0; modal = true; modalPage = 0;" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
+          <div v-if="menuMode === 2" class="y text-sm z-20 bg-neutral-50 dark:bg-neutral-900 top-6 absolute border border-neutral-200 dark:border-neutral-800">
+            <span @click="menuMode = 0; modal = true; modalPage = 'about';" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
               About
             </span>
-            <span @click="menuMode = 0; modal = true; modalPage = 1;" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
+            <span @click="menuMode = 0; modal = true; modalPage = 'updates';" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
               Check for Updates
             </span>
-            <span @click="menuMode = 0; modal = true; modalPage = 3;" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
+            <span @click="menuMode = 0; modal = true; modalPage = 'settings';" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
               Settings
             </span>
-            <template v-if="config.control">
-              <span id="devtab" @click="menuMode = 0; modal = true; modalPage = 1;" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left transition transition-all">Control Panel</span>
+            <div id="devtab" class="y" v-if="config.debug">
+              <hr class="border-neutral-200 dark:border-neutral-800"/>
+              <span @click="menuMode = 0; modal = true; modalPage = 'debug';" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left transition transition-all">
+                Debug Menu
+              </span>
+              <span @click="menuMode = 0; modal = true; modalPage = 'console';" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left transition transition-all">
+                Debug Console
+              </span>
+            </div>
+            <template v-if="config.developer">
+              <hr class="border-neutral-200 dark:border-neutral-800"/>
+              <span @click="menuMode = 0; modal = true; modalPage = 'releases';" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left transition transition-all">
+                Release Manager
+              </span>
             </template>
             <hr class="border-neutral-200 dark:border-neutral-800"/>
-            <span onclick="alert('Pretend this works :)')" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">
+            <span onclick="alert('Pretend this works :)')" class="hover:bg-red-500 text-red-500 hover:text-white py-0.5 px-1 text-left">
               Exit
             </span>
           </div>
@@ -42,34 +68,25 @@
          -->
         <!-- Game Switcher -->
         <div @mouseover="menuMode = 1" @mouseleave="menuMode = 0">
-          <div class="flex flex-row items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
-          <!-- Browser Tab Style: <div class="flex flex-row items-center border-x border-x-neutral-200 dark:border-x-neutral-800 bg-neutral-200 dark:bg-neutral-800">-->
+          <div class="x items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
+          <!-- Browser Tab Style: <div class="x items-center border-x border-x-neutral-200 dark:border-x-neutral-800 bg-neutral-200 dark:bg-neutral-800">-->
             <span class="text-xs px-1 py-1">{{ pageName }}</span>
           </div>
-          <div v-if="menuMode === 1" class="flex flex-col z-20 bg-neutral-50 dark:bg-neutral-900 top-6 absolute border border-neutral-200 dark:border-neutral-800 text-sm">
+          <div v-if="menuMode === 1" class="y z-20 bg-neutral-50 dark:bg-neutral-900 top-6 absolute border border-neutral-200 dark:border-neutral-800 text-sm">
             <router-link @click="menuMode = 0; pageName = 'Geometry\xa0Dash'" to="/gd" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">Geometry Dash</router-link>
             <router-link @click="menuMode = 0; pageName = 'Soundodger'" to="/sd" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white py-0.5 px-1 text-left">Soundodger</router-link>
           </div>
         </div>
-        <div v-if="config.supportButton" class="flex flex-row items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
+        <div v-if="config.supportButton" class="x items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
           <a target="_blank" href="https://patreon.com/seebeyond" class="text-xs px-1 py-1"><span class="text-red-500">&hearts;</span>&nbsp;Support</a>
         </div>
       </div>
       <div @auxclick="doneLoading = false" class="text-sm font-bold absolute" data-tauri-drag-region style="padding-top:1px;left: calc(50vw - 38px);">
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">H</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">y</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">p</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">e</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">r</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">b</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">o</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">l</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">u</span>
-        <span @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">s</span>
+        <span v-for="(char, index) in 'Hyperbolus'.split('')" :key="index" @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">{{ char }}</span>
       </div>
-      <div class="flex flex-row justify-end">
-        <div v-if="config.feedbackButton" class="flex flex-row items-center border-x border-x-neutral-200 dark:border-x-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
-          <a target="_blank" href="https://patreon.com/seebeyond" class="text-xs px-1 py-1">Send&nbsp;Feedback</a>
+      <div class="x justify-end">
+        <div @click="toggleFeedback" v-if="config.feedbackButton" class="x items-center border-x border-x-neutral-200 dark:border-x-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
+          <span class="text-xs px-1 py-1">Send&nbsp;Feedback</span>
         </div>
         <div @click="this.ctrl(0)" class="px-2 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -88,6 +105,7 @@
         </div>
       </div>
     </div>
+
     <div class="pt-6 h-screen">
       <router-view class="h-full"/>
       <transition
@@ -103,27 +121,28 @@
            causing an extended scroll -->
           <div class="cursor-auto shadow-2xl flex h-3/4 w-4/5 overflow-scroll rounded border border-neutral-400 dark:border-neutral-700">
             <!-- Vertical Nav Bar -->
-            <nav class="flex flex-col select-none space-y-2 p-2 text-neutral-700 dark:text-neutral-200 bg-neutral-50 dark:bg-neutral-900 border-r border-r-neutral-200 dark:border-r-neutral-800">
-              <span class="text-xs font-bold uppercase opacity-50">App&nbsp;Settings</span>
-              <span @click="modalPage = 0">Home</span>
-              <span @click="modalPage = 0">Accounts</span>
-
-              <span @click="modalPage = 3">Settings</span>
-              <span @click="modalPage = 3">App&nbsp;Version</span>
-              <span @click="modalPage = 3">Updates</span>
-              <template v-if="this.$root.$data.config.control">
+            <nav class="y select-none space-y-2 p-2 text-neutral-700 dark:text-neutral-200 bg-neutral-50 dark:bg-neutral-900 border-r border-r-neutral-200 dark:border-r-neutral-800">
+              <span class="text-xs font-bold uppercase opacity-50">Hyperbolus</span>
+              <span @click="modalPage = 'settings'">Settings</span>
+              <span @click="modalPage = 'updates'">Update</span>
+              <span @click="modalPage = 'about'">About</span>
+              <template v-if="this.$root.$data.config.debug">
+                <span class="text-xs font-bold uppercase opacity-50">Debug</span>
+                <span @click="modalPage = 'debug'">Debug</span>
+                <span @click="modalPage = 'console'">Console</span>
+              </template>
+              <template v-if="this.$root.$data.config.developer">
                 <span class="text-xs font-bold uppercase opacity-50">Developer</span>
-                <span @click="modalPage = 1">Debug</span>
-                <span @click="modalPage = 2">Console</span>
-                <span @click="modalPage = 4">Release</span>
+                <span @click="modalPage = 'releases'">Releases</span>
               </template>
             </nav>
             <main class="overflow-scroll w-full bg-neutral-200 dark:bg-neutral-800">
-              <home v-if="modalPage === 0"/>
-              <debug-menu v-if="modalPage === 1"/>
-              <console v-if="modalPage === 2"/>
-              <settings v-if="modalPage === 3"/>
-              <release v-if="modalPage === 4"/>
+              <home v-if="modalPage === 'about'"/>
+              <debug-menu v-if="modalPage === 'debug'"/>
+              <console v-if="modalPage === 'console'"/>
+              <updates v-if="modalPage === 'updates'"/>
+              <settings v-if="modalPage === 'settings'"/>
+              <release v-if="modalPage === 'releases'"/>
             </main>
           </div>
         </div>
@@ -137,14 +156,22 @@ import {window} from "@tauri-apps/api";
 import PuzzleSound from '@/assets/puzzle.mp3'
 import {readTextFile, writeFile} from "@tauri-apps/api/fs";
 import Splash from "@/views/GeometryDash/Splash";
-import Home from "@/views/Hyperbolus/Home";
+import Home from "@/views/Hyperbolus/About";
 import Release from "@/views/Hyperbolus/Release";
 import Settings from "@/views/Hyperbolus/Settings";
 import Console from "@/views/Hyperbolus/Console";
 import DebugMenu from "@/views/Hyperbolus/Debug";
+import Updates from "@/views/Hyperbolus/Updates";
+import {checkUpdate, installUpdate} from "@tauri-apps/api/updater";
+import {getName, getVersion} from "@tauri-apps/api/app";
+import {ask} from "@tauri-apps/api/dialog";
+import {relaunch} from "@tauri-apps/api/process";
+import ButtonRound from "@/components/ButtonRound";
 
 export default {
   components: {
+    ButtonRound,
+    Updates,
     Splash,
     Home,
     Release,
@@ -160,7 +187,7 @@ export default {
       pageName: 'Hyperbolus',
 
       modal: false,
-      modalPage: 0,
+      modalPage: '',
 
       socket: null,
       console: '',
@@ -185,6 +212,21 @@ export default {
       },
       deep: true,
       //immediate: true
+    }
+  },
+  async beforeMount() {
+    try {
+      const {shouldUpdate, manifest} = await checkUpdate()
+      if (shouldUpdate) {
+        let name = await getName();
+        let version = await getVersion();
+        if (await ask(`${name} ${manifest.version} is now available -- you have ${version}\n\nWould you like to install it now?\n\nRelease Notes:\n${manifest.body}`, 'New Update!')) {
+          await installUpdate()
+          await relaunch()
+        }
+      }
+    } catch (error) {
+      console.log(error)
     }
   },
   async beforeCreate() {
@@ -214,16 +256,18 @@ export default {
         document.getElementById('app').classList.toggle('dark')
       }
     },
-    async secretFunction(e) {
-      this.secretWord += e.target.innerText.toLowerCase();
-      e.target.style.color = 'cyan';
-      setTimeout(() => {
-        e.target.style.color = '';
-      }, 7000);
-      if (this.secretWord.includes('superbly')) {
+    async secretFunction(e, animate = false) {
+      if(!animate) {
+        this.secretWord += e.target.innerText.toLowerCase();
+        e.target.style.color = 'cyan';
+        setTimeout(() => {
+          e.target.style.color = '';
+        }, 7000);
+      }
+      if (this.secretWord.includes('superb') || animate) {
         this.secretWord = '';
         this.menuMode = 2;
-        this.config.control = true;
+        this.config.debug = true;
         await this.pause(5)
         let tab = document.getElementById('devtab');
         tab.style.transitionDuration = '1s';
@@ -242,7 +286,6 @@ export default {
         let audio = new Audio(PuzzleSound);
         audio.volume = 0.3;
         await audio.play();
-        this.config.control = true;
       }
     },
     async ctrl(mode) {
@@ -261,19 +304,114 @@ export default {
           await appWindow.close();
           break;
       }
+    },
+    toggleVault() {
+      let el = document.getElementById('vault');
+      let audio = document.getElementById('vault_audio');
+      audio.volume = 0.8;
+      let opt = el.classList.contains('_bounce-in-top');
+      el.classList.toggle('_bounce-in-top');
+      if(opt) {
+        el.classList.add('pointer-events-none')
+        setTimeout(() => el.style.transform = 'translateY(-100vh)', 10);
+        setTimeout(() => el.classList.add('opacity-0'), 400);
+        audio.pause();
+        audio.currentTime = 0;
+      } else {
+        el.classList.remove('opacity-0');
+        el.classList.remove('pointer-events-none');
+        el.style.transform = 'translateY(0)';
+        audio.play();
+      }
+    },
+    toggleFeedback() {
+      let el = document.getElementById('feedback');
+      let opt = el.classList.contains('opacity-0');
+      if(opt) {
+        el.classList.remove('opacity-0');
+        el.classList.remove('pointer-events-none');
+        el.style.transform = 'translateX(0)';
+      } else {
+        el.classList.add('pointer-events-none');
+        setTimeout(() => el.style.transform = 'translateX(100vw)', 10);
+        setTimeout(() => el.classList.add('opacity-0'), 400);
+      }
+    },
+    answerVault() {
+      if(this.$refs.vaultinput.value.toLowerCase() === 'superb') {
+        this.toggleVault();
+        this.secretFunction(null, true);
+      } else {
+        this.$refs.vaultinput.value = '';
+      }
+
+    },
+    back() {
+      if (document.getElementById('vault').classList.contains('_bounce-in-top')) {
+        this.toggleVault();
+      } else if(this.modal) {
+        this.modal = false;
+      } else {
+        this.$router.back();
+      }
     }
   }
 }
 </script>
-<style>
+<style scoped>
 ::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
+  width: 0;
+  height: 0;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0);
 }
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0);
+}
+@keyframes bounce-in-top {
+  0% {
+    transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  38% {
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  55% {
+    transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  72% {
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  81% {
+    transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  95% {
+    transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+._bounce-in-top {
+  animation: bounce-in-top 0.85s both;
 }
 </style>

@@ -58,11 +58,11 @@ export default {
     }
   },
   async beforeMount() {
-    await fetch("https://gdbrowser.com/api/level/" + this.$route.params.id)
+    await fetch("https://browser.gdps.io/api/level/" + this.$route.params.id)
         .then(res => res.json())
         .then(data => this.level = data);
 
-    await fetch("https://gdbrowser.com/api/comments/" + this.$route.params.id)
+    await fetch("https://browser.gdps.io/api/comments/" + this.$route.params.id)
         .then(res => res.json())
         .then(data => this.comments = data);
   }

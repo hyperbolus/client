@@ -1,13 +1,26 @@
 <template>
   <layout-standard title="Settings">
-    <button class="rounded bg-white dark:bg-neutral-700 px-2 py-1 mt-2" @click="this.$root.$data.config.darkMode = !this.$root.$data.config.darkMode">Toggle Dark Mode
-    </button>
+    <div class="space-y-4 max-w-xl">
+      <div class="flex flex-row justify-between items-center">
+        <span>Dark Mode</span>
+        <Toggle v-model="this.$root.$data.config.darkMode"/>
+      </div>
+      <div class="flex flex-row justify-between items-center">
+        <span>Feedback Button</span>
+        <Toggle v-model="this.$root.$data.config.feedbackButton"/>
+      </div>
+      <div class="flex flex-row justify-between items-center">
+        <span>Support Button</span>
+        <Toggle v-model="this.$root.$data.config.supportButton"/>
+      </div>
+    </div>
   </layout-standard>
 </template>
 <script>
 import LayoutStandard from "@/components/LayoutStandard";
+import Toggle from "@/components/Toggle";
 
 export default {
-  components: {LayoutStandard}
+  components: {Toggle, LayoutStandard}
 }
 </script>

@@ -1,7 +1,7 @@
 {
   "package": {
     "productName": "hyperbolus",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "build": {
     "distDir": "Set automatically by Vue CLI plugin",
@@ -53,7 +53,7 @@
         "https://hyperbol.us/api/releases/latest"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDYzODJDNDFFQzA0OEEwNjUKUldSbG9FakFIc1NDWXhCNXNyekR0dDBPRDFrL01TbjlMZVFvWGlBZlZpbFNhS1lrYk9yS0tUZmYK",
-      "dialog": true
+      "dialog": false
     },
     "allowlist": {
       "fs": {
@@ -85,11 +85,6 @@
         "open": ".*",
         "sidecar": true,
         "scope": [
-          {
-            "name": "get-hash-gd",
-            "cmd": "Get-FileHash",
-            "args": true
-          },
           {
             "name": "blackjack-1.2.1",
             "sidecar": true,

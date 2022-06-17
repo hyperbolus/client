@@ -16,7 +16,7 @@ fn main() {
         .with_menu(tray_menu);
     let app = tauri::Builder::default()
         .system_tray(system_tray)
-        .invoke_handler(tauri::generate_handler![check_games, hash_gd])
+        .invoke_handler(tauri::generate_handler![hash_gd])
         .setup(|app| {
             use tauri::Manager;
             use window_shadows::set_shadow;
@@ -47,23 +47,6 @@ fn main() {
         })*/
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-}
-
-#[tauri::command]
-fn check_games() -> String {
-    let paths = fs::read_dir("C:\\Program Files (x86)\\Steam\\steamapps\\common\\").unwrap();
-
-    let mut hello = String::from("");
-
-    for path in paths {
-        match path.unwrap().path().to_str() {
-            Some(p) => hello.push_str(p),
-            None => println!("has no value"),
-        }
-        hello.push('\n');
-    }
-
-    return hello;
 }
 
 #[tauri::command]

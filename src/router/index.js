@@ -23,13 +23,13 @@ import SDLevels from "@/views/Soundodger/Levels";
 import SDPacks from "@/views/Soundodger/Packs";
 import SDLibrary from "@/views/Soundodger/Library";
 
-import Hyperbolus from "@/views/Hyperbolus";
+//import Hyperbolus from "@/views/Hyperbolus";
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Hyperbolus
+    redirect: '/gd'
   },
   {
     path: '/gd/editor',

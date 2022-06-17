@@ -16,7 +16,7 @@
 </template>
 <script>
 
-import ModItem from "@/views/GeometryDash/ModItem";
+import ModItem from "@/components/ModItem";
 import LayoutStandard from "@/components/LayoutStandard";
 export default {
   name: "Mods",

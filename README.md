@@ -1,10 +1,6 @@
-# geodesic
-
-wip
-
-
-
-
+<div align="center">
+    <img width="50%" src="src/assets/logo.png" alt="logo">
+</div>
 
 # Ignore the rest of this
 

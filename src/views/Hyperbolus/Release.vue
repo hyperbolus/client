@@ -4,22 +4,24 @@
       <button-round v-if="page === 0" @click="page = 1">Submit Release</button-round>
       <button-round v-else @click="page = 0">Back to Release List</button-round>
     </template>
-    <template v-if="page === 0">
+    <div v-if="page === 0">
       <span v-if="releases.length === 0">No releases</span>
-      <div class="space-y-2" v-else>
+      <template v-else>
         <div class="flex justify-between items-center grid grid-cols-8 px-2">
           <span class="font-bold">Version</span>
           <span class="font-bold col-span-2">Platform</span>
           <span class="font-bold col-span-4">Release Notes</span>
         </div>
-        <div v-for="(release, index) in releases" :key="index" class="flex justify-between items-center grid grid-cols-8 rounded bg-neutral-300 dark:bg-neutral-900 border border-neutral-400 dark:border-neutral-600 py-1 px-2 text-neutral-700 dark:text-white">
-          <span class="font-mono text-xs">{{ release.version }}</span>
-          <span class="font-bold text-xs col-span-2">{{ release.platform }}</span>
-          <span class="col-span-4">{{ release.release_notes }}</span>
-          <span class="text-red-500 hover:text-red-600 hover:cursor-pointer" @click="deleteRelease(release.id)">Delete</span>
+        <div class="space-y-2">
+          <div v-for="(release, index) in releases" :key="index" class="flex justify-between items-center grid grid-cols-8 rounded bg-neutral-300 dark:bg-neutral-900 border border-neutral-400 dark:border-neutral-600 py-1 px-2 text-neutral-700 dark:text-white">
+            <span class="font-mono text-xs">{{ release.version }}</span>
+            <span class="font-bold text-xs col-span-2">{{ release.platform }}</span>
+            <span class="col-span-4">{{ release.release_notes }}</span>
+            <span class="text-red-500 hover:text-red-600 hover:cursor-pointer" @click="deleteRelease(release.id)">Delete</span>
+          </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
     <template v-else>
       <input ref="file" type="file" multiple/>
       <div class="flex justify-between gap-2">
@@ -31,7 +33,7 @@
       </div>
       <input ref="notes" type="text" class="rounded bg-neutral-300 dark:bg-neutral-900 border border-neutral-400 dark:border-neutral-600 py-1 px-2 text-neutral-700 dark:text-white placeholder-neutral-500" placeholder="Release notes"/>
       <input ref="key" type="password" :value="this.$root.$data.config.releaseKey" class="rounded bg-neutral-300 dark:bg-neutral-900 border border-neutral-400 dark:border-neutral-600 py-1 px-2 text-neutral-700 dark:text-white placeholder-neutral-500" placeholder="Release Key"/>
-      <ButtonRound v-if="submitted" class="opacity-50">Submitting...</ButtonRound>
+      <ButtonRound v-if="submitted" class="opacity-50 cursor-auto ">Submitting...</ButtonRound>
       <ButtonRound v-else @click="submit">Submit</ButtonRound>
       <span class="text-red-500">{{ error }}</span>
     </template>

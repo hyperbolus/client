@@ -25,9 +25,11 @@
       </div>
     </div>
     <audio @timeupdate="updateSlider" id="player" ref="player" class="hidden"></audio>
-    <div v-for="(song, index) in songs" v-bind:key="index" class="flex items-center space-x-2 border border-neutral-400 dark:border-neutral-700 mb-2 bg-neutral-50 shadow rounded dark:bg-neutral-900 p-4">
-      <button-round @click="play(song.path)">Play</button-round>
-      <h2 class="font-bold text-2xl">{{ song.name }}</h2>
+    <div class="overflow-y-scroll space-y-2" style="max-height: calc(100vh - 16rem)">
+      <div v-for="(song, index) in songs" v-bind:key="index" class="flex items-center space-x-2 border border-neutral-400 dark:border-neutral-700 bg-neutral-50 shadow rounded dark:bg-neutral-900 p-4">
+        <button-round @click="play(song.path)">Play</button-round>
+        <h2 class="font-bold text-2xl">{{ song.name }}</h2>
+      </div>
     </div>
   </layout-standard>
 </template>
@@ -87,3 +89,15 @@ export default {
   },
 }
 </script>
+<style scoped>
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 1);
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+</style>

@@ -30,7 +30,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
           </svg>
         </NavLink>
-        <!--
         <NavLink to="/gd/videos">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
@@ -41,7 +40,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
         </NavLink>
-        -->
         <NavLink to="/gd/music">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
@@ -58,66 +56,69 @@
     <div class="flex flex-col w-full">
       <!-- Header -->
       <header class="flex flex-row space-x-4 p-1 px-4 justify-end bg-neutral-50 dark:bg-neutral-900 border-b border-b-neutral-200 dark:border-b-neutral-800">
-        <Dropdown align="origin-top-right right-0" width="w-40">
-          <template #trigger>
-            <button type="button" class="mt-1.5 inline-flex items-center text-sm font-medium rounded-md text-neutral-700 dark:text-neutral-200 hover:text-neutral-300 transition ease-in-out duration-150">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-              </svg>
-            </button>
-          </template>
-          <template #content>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-          </template>
-        </Dropdown>
-        <Dropdown align="origin-top-right right-0" width="w-40">
-          <template #trigger>
-            <button type="button" class="mt-1.5 inline-flex items-center text-sm font-medium rounded-md text-neutral-700 dark:text-neutral-200 hover:text-neutral-300 transition ease-in-out duration-150">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-            </button>
-          </template>
-          <template #content>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Profile</DropdownLink>
-          </template>
-        </Dropdown>
-        <Dropdown align="origin-top-right right-0" width="w-40">
-          <template #trigger>
-            <button type="button" class="mt-2 inline-flex items-center text-sm font-medium rounded-md text-neutral-700 dark:text-neutral-200 hover:text-neutral-300 transition ease-in-out duration-150">
-              RobTop<svg class="ml-1 -mr-0.5 -mb-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-            </button>
-          </template>
-          <template #content>
-            <DropdownLink to="#">Profile</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Settings</DropdownLink>
-            <DropdownLink to="#">Edit Theme</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#">Night Mode</DropdownLink>
-            <DropdownLink to="#">English</DropdownLink>
-            <hr class="my-1"/>
-            <DropdownLink to="#" class="text-red-500 hover:text-white hover:bg-red-500">Logout</DropdownLink>
-          </template>
-        </Dropdown>
+        <template v-if="false">
+          <Dropdown align="origin-top-right right-0" width="w-40">
+            <template #trigger>
+              <button type="button" class="mt-1.5 inline-flex items-center text-sm font-medium rounded-md text-neutral-700 dark:text-neutral-200 hover:text-neutral-300 transition ease-in-out duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                </svg>
+              </button>
+            </template>
+            <template #content>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+            </template>
+          </Dropdown>
+          <Dropdown align="origin-top-right right-0" width="w-40">
+            <template #trigger>
+              <button type="button" class="mt-1.5 inline-flex items-center text-sm font-medium rounded-md text-neutral-700 dark:text-neutral-200 hover:text-neutral-300 transition ease-in-out duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+              </button>
+            </template>
+            <template #content>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Profile</DropdownLink>
+            </template>
+          </Dropdown>
+          <Dropdown align="origin-top-right right-0" width="w-40">
+            <template #trigger>
+              <button type="button" class="mt-2 inline-flex items-center text-sm font-medium rounded-md text-neutral-700 dark:text-neutral-200 hover:text-neutral-300 transition ease-in-out duration-150">
+                RobTop<svg class="ml-1 -mr-0.5 -mb-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+              </button>
+            </template>
+            <template #content>
+              <DropdownLink to="#">Profile</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Settings</DropdownLink>
+              <DropdownLink to="#">Edit Theme</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#">Night Mode</DropdownLink>
+              <DropdownLink to="#">English</DropdownLink>
+              <hr class="my-1"/>
+              <DropdownLink to="#" class="text-red-500 hover:text-white hover:bg-red-500">Logout</DropdownLink>
+            </template>
+          </Dropdown>
+        </template>
+        &nbsp;
       </header>
       <main class="w-full h-full overflow-scroll bg-neutral-200 dark:bg-neutral-800">
         <router-view/>
