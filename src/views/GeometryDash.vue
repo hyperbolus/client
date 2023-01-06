@@ -53,9 +53,9 @@
         </svg>
       </NavLink>
     </nav>
-    <div class="flex flex-col w-full">
+    <div class="y w-full">
       <!-- Header -->
-      <header class="flex flex-row space-x-4 p-1 px-4 justify-end bg-neutral-50 dark:bg-neutral-900 border-b border-b-neutral-200 dark:border-b-neutral-800">
+      <header v-if="false" class="x space-x-8 py-4 px-6 bg-neutral-50 dark:bg-neutral-900 border-b border-b-neutral-200 dark:border-b-neutral-800">
         <template v-if="false">
           <Dropdown align="origin-top-right right-0" width="w-40">
             <template #trigger>
@@ -118,7 +118,12 @@
             </template>
           </Dropdown>
         </template>
-        &nbsp;
+        <router-link to="/gd" active-class="opacity-100" class="text click opacity-75">HOME</router-link>
+        <router-link to="/gd/browser" active-class="opacity-100" class="text  click opacity-75">BROWSER</router-link>
+        <router-link to="/gd/tools" active-class="opacity-100" class="text  click opacity-75">TOOLS</router-link>
+        <router-link to="/gd/wiki" active-class="opacity-100" class="text  click opacity-75">WIKI</router-link>
+        <router-link to="/gd/forum" active-class="opacity-100" class="text  click opacity-75">FORUM</router-link>
+        <router-link to="/gd/music" active-class="opacity-100" class="text  click opacity-75">MUSIC</router-link>
       </header>
       <main class="w-full h-full overflow-scroll bg-neutral-200 dark:bg-neutral-800">
         <router-view/>

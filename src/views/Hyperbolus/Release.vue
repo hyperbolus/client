@@ -89,7 +89,7 @@ export default {
         }
         formData.append('key', this.$root.$data.config.releaseKey);
         formData.append('release_notes', this.$refs.notes.value);
-        fetch('https://hyperbol.us/api/releases/upload', {
+        fetch(this.$root.config.server+'api/releases/upload', {
           method: 'POST',
           body: formData,
         })

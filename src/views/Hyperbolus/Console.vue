@@ -42,8 +42,9 @@ export default {
           }
         },
         "eval": {
-          description: "Evaluates JavaScript",
+          description: "Evaluates JavaScript (ONLY WORKS IN DEBUG BUILD + DEV MODE ENABLED)",
           action: (args) => {
+            if (!this.$parent.props.config.debug) return; /** @macro DEBUG_ONLY */
             args.shift();
             this.log(eval(args.join()));
           }
@@ -81,7 +82,7 @@ export default {
     }
   },
   mounted() {
-    this.$root.$data.console = "Hyperbolus Console v0.1\n\ntype `help` for a list of commands\n"
+    this.$root.$data.console = "Hyperbolus Console\n\ntype `help` for a list of commands\n"
   }
 }
 </script>

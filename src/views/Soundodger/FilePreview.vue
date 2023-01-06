@@ -1,16 +1,15 @@
 <template>
-  <div class="h-fit shrink-0 bg-neutral-50 dark:bg-neutral-900 border border-neutral-400 dark:border-neutral-700 p-4">
-    <!--<img v-if="pack.primaryScreenshot" class=" h-32" alt="screenshot" :src="pack.primaryScreenshot.url"/>
-    <img v-else class=" h-32" alt="screenshot" src="@/assets/sd_default.jpg"/>-->
-    <img class=" h-32" alt="screenshot" src="@/assets/sd_default.jpg"/>
-    <h1 class="font-bold mt-2">{{ file.title }}</h1>
+  <round-box class="h-fit shrink-0 grow-0 px-2">
+    <img v-if="file.primaryScreenshot" class=" h-32" alt="screenshot" :src="file.primaryScreenshot.url"/>
+    <img v-else class=" h-32" alt="screenshot" src="@/assets/sd_default.jpg"/>
+    <h1 class="font-bold mt-2" :class="file.files[0].name.includes('.rar') ? 'text-red-500' : 'text-green-500'">{{ file.title }}</h1>
     <div class="flex flex-row items-center  text-neutral-500">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
       </svg>
       <span class="text-sm ml-1">{{ file.author.name }}</span>
     </div>
-    <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row justify-between items-center gap-2">
       <div class="flex flex-row items-center text-neutral-500 text-sm">
         <div class="flex flex-row items-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -33,17 +32,64 @@
           <span class="ml-1">{{ file.comments }}</span>
         </div>
       </div>
-      <div class="p-2 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 border border-neutral-400 dark:border-neutral-700 transition transition-colors">
+      <div onclick="alert('.rar files are currently unsupported and are in the process of being converted.\nThis level will be available to download in a future update.\nSorry for the inconvenience.')" v-if="file.files[0].name.includes('.rar')" class="shadow click text-red-500 p-2 click bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-900 border border-neutral-400 dark:border-neutral-700 transition transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
+      <template v-else>
+        <div v-if="downloading" class="p-2 bg-neutral-200 dark:bg-neutral-900 border border-neutral-400 dark:border-neutral-700 transition transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </div>
+        <div v-else @click="download" class="p-2 shadow click bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-900 border border-neutral-400 dark:border-neutral-700 transition transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </div>
+      </template>
     </div>
-  </div>
+  </round-box>
 </template>
 <script>
+import {invoke} from "@tauri-apps/api/tauri";
+import {Command} from "@tauri-apps/api/shell";
+import {appDir} from "@tauri-apps/api/path";
+import {createDir, removeFile} from "@tauri-apps/api/fs";
+import RoundBox from "@/components/RoundBox";
+import {v4 as uuidv4} from "uuid"
+
 export default {
   name: "FilePreview",
-  props: ['file']
+  components: {RoundBox},
+  props: ['file', 'pack'],
+  data() {
+    return {
+      downloading: false
+    }
+  },
+  methods: {
+    async download() {
+      this.downloading = true;
+      let dir;
+      if(this.pack) {
+        dir = await appDir() + 'soundodger\\packs\\';
+      } else {
+        dir = await appDir() + 'soundodger\\levels\\';
+      }
+      const path = dir + uuidv4();
+      await createDir(dir, {recursive: true});
+      await invoke('fetch_file', {url: this.file.files[0].url, fileName: path});
+      const cmd = new Command.sidecar('7za-22.00', [
+          'x', path, '-o' + dir, '-y'
+      ]);
+      await cmd.execute().then(res => {
+        console.log(res);
+        this.downloading = false;
+        removeFile(path);
+      });
+    }
+  }
 }
 </script>

@@ -9,16 +9,28 @@
         <h2 class="text-neutral-700 dark:text-white text-xl font-bold">Other Tools</h2>
         <span class="border-b border-b-neutral-300 dark:border-b-neutral-600 mt-1 block"></span>
       </div>
-      <p>These are standalone downloadable programs. They must be installed independantly of Hyperbolus.</p>
-      <div class="x gap-2">
-        <div class="x box box-shadow click items-center justify-between grow">
-          <div>
-            <h3 class="font-bold text-lg">Loquibot</h3>
-            <span>By Alphaneous</span>
-          </div>
-          <external-link-icon class="w-8 h-8"/>
+      <p>These are misc projects that are independent of Hyperbolus.</p>
+      <a target="_blank" href="https://loquibot.com" class="x box box-shadow click items-center justify-between grow">
+        <div>
+          <h3 class="font-bold text-lg">Loquibot</h3>
+          <span>By Alphaneous</span>
         </div>
-      </div>
+        <external-link-icon class="w-8 h-8"/>
+      </a>
+      <a target="_blank" href="https://github.com/Spu7Nix/SPWN-language" class="x box box-shadow click items-center justify-between grow">
+        <div>
+          <h3 class="font-bold text-lg">SPWN Language</h3>
+          <span>By Spu7nix & Contributors</span>
+        </div>
+        <external-link-icon class="w-8 h-8"/>
+      </a>
+      <a target="_blank" href="https://geode-sdk.github.io/docs/installation" class="x box box-shadow click items-center justify-between grow">
+        <div>
+          <h3 class="font-bold text-lg">Geode Developer Tools</h3>
+          <span>By Geode Team</span>
+        </div>
+        <external-link-icon class="w-8 h-8"/>
+      </a>
     </div>
   </layout-standard>
 </template>

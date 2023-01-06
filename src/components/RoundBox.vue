@@ -1,5 +1,5 @@
 <template>
-  <div class="box text-neutral-700 dark:text-white"><slot/></div>
+  <div class="box"><slot/></div>
 </template>
 <script>
 export default {

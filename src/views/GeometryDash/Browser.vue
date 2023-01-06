@@ -24,7 +24,7 @@
         <text-input v-model="query" @keydown.enter="search" placeholder="Search levels..."/>
         <button-round @click="search" placeholder="Search levels...">Search</button-round>
       </div>
-      <div v-if="levels.length === 0" class="x justify-center items-center h-full rounded my-8 p-4 bg-neutral-200 dark:bg-neutral-900">
+      <div v-if="levels.length === 0" class="x justify-center items-center h-full rounded my-8 p-4 bg-neutral-300 dark:bg-neutral-900">
         <span v-if="searching" class="opacity-50">Searching...</span>
         <span v-else-if="!searched" class="opacity-50">Type in a query and hit enter to search.</span>
         <span v-else-if="failed" class="opacity-50">Nothin' here, bud.</span>

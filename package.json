@@ -1,6 +1,6 @@
 {
   "name": "geodesic",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,7 +14,7 @@
     "@meilisearch/instant-meilisearch": "^0.7.1",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/typography": "^0.5.2",
-    "@tauri-apps/api": "^1.0.0-rc.5",
+    "@tauri-apps/api": "^1.0.0-rc.7",
     "core-js": "^3.22.6",
     "pixi-viewport": "^4.34.4",
     "pixi.js": "^6.3.2",

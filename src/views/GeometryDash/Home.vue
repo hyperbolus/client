@@ -1,6 +1,6 @@
 <template>
   <layout-standard title="Home">
-    <div class="flex gap-2">
+    <div class="x gap-2">
       <div style="max-height: calc(100vh - 10.5rem)" class="w-2/3 overflow-y-scroll p-4 rounded bg-neutral-100 dark:bg-neutral-900">
         <h1 class="font-bold text-2xl dark:text-white">Welcome!</h1>
         <span class="border-b border-b-neutral-300 dark:border-b-neutral-600 mt-1 mb-3 block"></span>
@@ -11,10 +11,15 @@
           any questions, please join our Discord! --&gt;</p>
         <h1 class="font-bold text-2xl dark:text-white">Notes</h1>
         <span class="border-b border-b-neutral-300 dark:border-b-neutral-600 mt-1 mb-1 block"></span>
-        <h1 class="font-bold dark:text-white">Browser Page</h1>
-        <p>So, browser page is working! Only for levels right now though. There is an experimental toggle switch to search
-          the descriptions of levels. It works in a limited capacity so no all levels are included. Next release I hope to
-          finish adding the search options.</p>
+        <h1 class="font-bold dark:text-white">Launch Page</h1>
+        <p>Ahahaha I was so proud of myself to get this working. Even though it's really actually simple on the back-end
+          I'm still proud of getting it all working together considering the goals I set myself and how I went about
+          the learning process to achieve them. HUGE thanks to matcool for helping me figure out the hooking code to
+          make the save switcher work. GDPS support I also got pretty much for free by hooking a different function.
+          Custom executables and mods required to make GDPSes work aren't perfect so I am working on a sort of "modpack"
+          format for importing profiles. Save managing needs a bit more work, I'd also like to add regular save backups
+          since saves fucking suck. Wylie is working on a better save file project allegedly so I would love to support
+          that.</p>
         <h1 class="font-bold dark:text-white">Browser Page</h1>
         <p>So, browser page is working! Only for levels right now though. There is an experimental toggle switch to search
           the descriptions of levels. It works in a limited capacity so no all levels are included. Next release I hope to
@@ -56,7 +61,7 @@
           building this client. As well as the UX when it comes to downloading and installing the dependencies such as
           ffmpeg and the actual youtube-dl cli itself.</p>
       </div>
-      <iframe style="height: calc(100vh - 10.5rem)" class="w-1/3" src="https://discord.com/widget?id=839698528170409996&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+      <iframe style="height: calc(100vh - 10.5rem)" class="w-1/3 rounded bg-neutral-100 dark:bg-neutral-900" src="https://discord.com/widget?id=839698528170409996&theme=dark" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
     </div>
   </layout-standard>
 </template>

@@ -1,21 +1,5 @@
 <template>
-  <Splash v-if="launchStage === 0" @done="launchStage === 1"/>
-  <Setup v-if="launchStage === 1" @done="launchStage === 2"/>
-  <div id="client" v-if="launchStage === 2" class="y">
-    <div id="vault" style="background: linear-gradient(#004A63, #00222D); transform: translateY(-100vh); transition: transform 0.4s ease-in-out;" class="pointer-events-none opacity-0 y items-center p-8 h-screen w-screen z-[35] fixed">
-      <audio id="vault_audio" :src="require('@/assets/gd/mus.mp3')" loop></audio>
-      <img class="h-10 my-4" alt="vault" :src="require('@/assets/gd/vault.png')"/>
-      <input @keydown.enter="answerVault" ref="vaultinput" class="text-white p-2 rounded-lg border-0 focus:ring-0 bg-black bg-opacity-50" type="text"/>
-      <div @click="answerVault" class="y items-center scale-75 hover:scale-100 pointer-events-none" style="transition: all 0.25s cubic-bezier(.1, 1.97, 0.38, 0.25);">
-        <img class="w-1/2 pointer-events-auto" alt="vaultkeeper" :src="require('@/assets/gd/GJ_secretLock2_001.png')"/>
-        <img class="w-1/4 pointer-events-auto -mt-9 -z-10" alt="vaultlock" :src="require('@/assets/gd/GJ_secretLock2_2_001.png')"/>
-      </div>
-      <button-round @click="toggleVault">Close Vault</button-round>
-    </div>
-    <div id="feedback" style="transform: translateX(100vw); transition: transform 0.5s ease-in-out;" class="pointer-events-none opacity-0 y items-center p-8 h-screen w-screen z-[36] bg-blue-300 fixed">
-      <div class="text-center">Your opinions don't matter.<br/><span class="opacity-10">(they do i just dont have a facility to collect them yet im sorry xoxo have a nice day &lt;3)</span></div>
-      <button-round @click="toggleFeedback">Close Feedback</button-round>
-    </div>
+  <div id="client" v-if="launchStage === 2" class="y overflow-clip">
     <div data-tauri-drag-region class="z-40 dark:bg-neutral-900 bg-neutral-50 x text-neutral-700 dark:text-neutral-400 justify-between w-full fixed select-none border-b border-b-neutral-200 dark:border-b-neutral-800">
       <div class="x items-center">
         <!-- Back Button -->
@@ -63,42 +47,11 @@
             </span>
           </div>
         </div>
-        <!--
-         There is some SLIGHT color differences on the light mode
-         with the border and bg for neutral-200 and it's driving
-         me up the wall so i am just gonna ignore it, hope i forget,
-         but leave this note so the knowledge isn't lost. sorry.
-         note: it might be the shadow and z-index? investigate...
-         -->
-        <!-- Game Switcher -->
-        <div @mouseover="menuMode = 1" @mouseleave="menuMode = 0">
-          <div class="x items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
-          <!-- Browser Tab Style: <div class="x items-center border-x border-x-neutral-200 dark:border-x-neutral-800 bg-neutral-200 dark:bg-neutral-800">-->
-            <span class="text-xs px-1 py-1">{{ pageName }}</span>
-          </div>
-          <div v-if="menuMode === 1" class="y z-20 bg-neutral-50 dark:bg-neutral-900 top-6 absolute border border-neutral-200 dark:border-neutral-800 text-sm">
-            <!--<router-link @click="menuMode = 0; pageName = 'Geometry\xa0Dash'" to="/gd" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white my-0.5 mx-1 text-left">Geometry Dash</router-link>-->
-            <router-link @click="menuMode = 0; pageName = 'Soundodger'" to="/sd" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white my-0.5 mx-1 text-left">Soundodger</router-link>
-            <router-link @click="menuMode = 0; pageName = 'Geometry\xa0Dash'" to="/gd" class="hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:hover:text-white my-0.5 mx-1 text-left">Geometry Dash</router-link>
-            <span class="font-bold text-xs dark:text-neutral-600 ml-1">UNAVAILABLE</span>
-            <div class="y dark:text-neutral-700">
-              <span class="py-0.5 mx-1 text-left">Spin Rhythm</span>
-              <span class="py-0.5 mx-1 text-left">Overpass</span>
-              <span class="py-0.5 mx-1 text-left">Would You Snail?</span>
-            </div>
-          </div>
-        </div>
-        <div v-if="config.supportButton" class="x items-center border-r border-r-neutral-200 dark:border-r-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
-          <a target="_blank" href="https://patreon.com/seebeyond" class="text-xs px-1 py-1"><span class="text-red-500">&hearts;</span>&nbsp;Support</a>
-        </div>
       </div>
-      <div @auxclick="doneLoading = false" class="text-sm font-bold absolute" data-tauri-drag-region style="padding-top:1px;left: calc(50vw - 38px);">
-        <span v-for="(char, index) in 'Hyperbolus'.split('')" :key="index" @click="secretFunction" class="hover:text-neutral-400 dark:hover:text-neutral-600 transition transition-colors">{{ char }}</span>
+      <div class="text-sm font-bold absolute" data-tauri-drag-region style="padding-top:1px;left: calc(50vw - 38px);">
+        MelodyKit
       </div>
       <div class="x justify-end">
-        <div @click="toggleFeedback" v-if="config.feedbackButton" class="x items-center border-x border-x-neutral-200 dark:border-x-neutral-800 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700">
-          <span class="text-xs px-1 py-1">Send&nbsp;Feedback</span>
-        </div>
         <div @click="this.ctrl(0)" class="px-2 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
@@ -116,9 +69,136 @@
         </div>
       </div>
     </div>
-
-    <div class="pt-6 h-screen">
-      <router-view class="h-full"/>
+    <div class="pt-6 pb-20 h-screen">
+      <div class="y h-full bg-neutral-900">
+        <div class="x flex-grow">
+          <div class="y bg-neutral-800 w-1/5 text-white px-4 py-3 space-y-2">
+            <div class="x items-center gap-2 text-lg font-bold">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+              <span>Sync</span>
+            </div>
+            <div class="x items-center gap-2 text-lg font-bold">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+              <span>Search</span>
+            </div>
+            <div class="x items-center gap-2 text-lg font-bold text-cyan-500">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+              </svg>
+              <span>Library</span>
+            </div>
+            <div class="border-t border-t-neutral-600"></div>
+            <div class="text-lg font-bold">Create Playlist</div>
+            <div class="text-lg font-bold">Liked Songs</div>
+          </div>
+          <div class="bg-neutral-900 w-4/5 max-h-screen text-white p-4 space-y-4 overflow-y-scroll">
+            <div class="x gap-2">
+              <div class="rounded-full border-2 border-white text-xs px-4 py-0.5">Songs</div>
+              <div class="rounded-full border-2 border-white text-xs px-4 py-0.5">Artists</div>
+              <div class="rounded-full border-2 border-indigo-400 text-indigo-400 text-xs px-4 py-0.5">Albums</div>
+            </div>
+            <h1 class="font-bold text-2xl text-white">Albums</h1>
+            <div class="flex flex-wrap gap-4">
+              <div class="y flex-grow-0 basis-1 gap-2 w-fit rounded bg-neutral-800 hover:bg-neutral-700 cursor-pointer transition p-2">
+                <div class="x justify-end items-end p-2 text-neutral-800 bg-indigo-900 w-40 h-40 rounded-sm shadow-lg">
+                  <div class="w-fit rounded-full p-2 bg-indigo-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                      <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h2 class="font-bold">Play It</h2>
+                  <h3 class="text-sm opacity-50">The Players</h3>
+                </div>
+              </div>
+              <div class="y flex-grow-0 basis-1 gap-2 w-fit rounded bg-neutral-800 p-2">
+                <div class="bg-cyan-900 w-40 h-40 rounded-sm shadow-lg"></div>
+                <div>
+                  <h2 class="font-bold">Title</h2>
+                  <h3 class="text-sm opacity-50">Artist</h3>
+                </div>
+              </div>
+              <div class="y flex-grow-0 basis-1 gap-2 w-fit rounded bg-neutral-800 p-2">
+                <div class="bg-red-900 w-40 h-40 rounded-sm shadow-lg"></div>
+                <div>
+                  <h2 class="font-bold">TitleMongers</h2>
+                  <h3 class="text-sm opacity-50">Artisters</h3>
+                </div>
+              </div>
+              <div class="y flex-grow-0 basis-1 gap-2 w-fit rounded bg-neutral-800 p-2">
+                <div class="bg-red-900 w-40 h-40 rounded-sm shadow-lg"></div>
+                <div>
+                  <h2 class="font-bold">The Title</h2>
+                  <h3 class="text-sm opacity-50">The Title</h3>
+                </div>
+              </div>
+              <div class="y flex-grow-0 basis-1 gap-2 w-fit rounded bg-neutral-800 p-2">
+                <div class="bg-green-900 w-40 h-40 rounded-sm shadow-lg"></div>
+                <div>
+                  <h2 class="font-bold">Title</h2>
+                  <h3 class="text-sm opacity-50">Artist</h3>
+                </div>
+              </div>
+              <div class="y flex-grow-0 basis-1 gap-2 w-fit rounded bg-neutral-800 p-2">
+                <div class="bg-amber-900 w-40 h-40 rounded-sm shadow-lg"></div>
+                <div class="overflow-ellipsis">
+                  <h2 class="font-bold">The Album of All Time</h2>
+                  <h3 class="text-sm opacity-50">AlbumWriters</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="x w-full fixed bottom-0 z-40 justify-between text-white gap-4 p-4 bg-neutral-900 border-t border-t-neutral-800">
+        <div class="x justify-between gap-4 items-center w-1/5">
+          <div class="y">
+            <span class="text-sm">Chaoz Airflow</span>
+            <span class="opacity-75 text-xs">ParagonX9</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
+        </div>
+        <div class="y items-center gap-2 w-1/2">
+          <div class="x items-center gap-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path fill-rule="evenodd" d="M15.97 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 010 1.06l-4.5 4.5a.75.75 0 11-1.06-1.06l3.22-3.22H7.5a.75.75 0 010-1.5h11.69l-3.22-3.22a.75.75 0 010-1.06zm-7.94 9a.75.75 0 010 1.06l-3.22 3.22H16.5a.75.75 0 010 1.5H4.81l3.22 3.22a.75.75 0 11-1.06 1.06l-4.5-4.5a.75.75 0 010-1.06l4.5-4.5a.75.75 0 011.06 0z" clip-rule="evenodd" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M9.195 18.44c1.25.713 2.805-.19 2.805-1.629v-2.34l6.945 3.968c1.25.714 2.805-.188 2.805-1.628V8.688c0-1.44-1.555-2.342-2.805-1.628L12 11.03v-2.34c0-1.44-1.555-2.343-2.805-1.629l-7.108 4.062c-1.26.72-1.26 2.536 0 3.256l7.108 4.061z" />
+            </svg>
+            <div class="rounded-full bg-white text-neutral-900 p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M5.055 7.06c-1.25-.714-2.805.189-2.805 1.628v8.123c0 1.44 1.555 2.342 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.342 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256L14.805 7.06C13.555 6.346 12 7.25 12 8.688v2.34L5.055 7.06z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path fill-rule="evenodd" d="M12 5.25c1.213 0 2.415.046 3.605.135a3.256 3.256 0 013.01 3.01c.044.583.077 1.17.1 1.759L17.03 8.47a.75.75 0 10-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 00-1.06-1.06l-1.752 1.751c-.023-.65-.06-1.296-.108-1.939a4.756 4.756 0 00-4.392-4.392 49.422 49.422 0 00-7.436 0A4.756 4.756 0 003.89 8.282c-.017.224-.033.447-.046.672a.75.75 0 101.497.092c.013-.217.028-.434.044-.651a3.256 3.256 0 013.01-3.01c1.19-.09 2.392-.135 3.605-.135zm-6.97 6.22a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.752-1.751c.023.65.06 1.296.108 1.939a4.756 4.756 0 004.392 4.392 49.413 49.413 0 007.436 0 4.756 4.756 0 004.392-4.392c.017-.223.032-.447.046-.672a.75.75 0 00-1.497-.092c-.013.217-.028.434-.044.651a3.256 3.256 0 01-3.01 3.01 47.953 47.953 0 01-7.21 0 3.256 3.256 0 01-3.01-3.01 47.759 47.759 0 01-.1-1.759L6.97 15.53a.75.75 0 001.06-1.06l-3-3z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="x gap-2 items-center w-full px-8">
+            <span class="text-xs">0:14</span>
+            <input class="w-full" type="range">
+            <span class="text-xs">4:12</span>
+          </div>
+        </div>
+        <div class="x items-center gap-2 w-1/5">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+            <path d="M10 3.75a.75.75 0 00-1.264-.546L4.703 7H3.167a.75.75 0 00-.7.48A6.985 6.985 0 002 10c0 .887.165 1.737.468 2.52.111.29.39.48.7.48h1.535l4.033 3.796A.75.75 0 0010 16.25V3.75zM15.95 5.05a.75.75 0 00-1.06 1.061 5.5 5.5 0 010 7.778.75.75 0 001.06 1.06 7 7 0 000-9.899z" />
+            <path d="M13.829 7.172a.75.75 0 00-1.061 1.06 2.5 2.5 0 010 3.536.75.75 0 001.06 1.06 4 4 0 000-5.656z" />
+          </svg>
+          <input type="range">
+        </div>
+      </div>
       <transition
           enter-active-class="duration-300 ease-out"
           enter-from-class="transform opacity-0"
@@ -127,11 +207,7 @@
           leave-from-class="opacity-100"
           leave-to-class="transform opacity-0">
         <div @click.self="this.$root.modal = false" v-if="modal" class="z-10 flex cursor-pointer justify-center top-0 items-center h-full w-full absolute bg-opacity-50 bg-black">
-          <!-- note: there should be top-6 here ^^^ however since the title bar rests above the z index
-           we can kinda ignore this and save the trouble of this container jutting out under the screen
-           causing an extended scroll -->
           <div class="cursor-auto shadow-2xl flex h-3/4 w-4/5 overflow-scroll rounded border border-neutral-400 dark:border-neutral-700">
-            <!-- Vertical Nav Bar -->
             <nav class="y select-none space-y-2 p-2 text-neutral-700 dark:text-neutral-200 bg-neutral-50 dark:bg-neutral-900 border-r border-r-neutral-200 dark:border-r-neutral-800">
               <span class="text-xs font-bold uppercase opacity-50">Hyperbolus</span>
               <span @click="modalPage = 'settings'">Settings</span>
@@ -155,7 +231,6 @@
               <settings v-if="modalPage === 'settings'"/>
               <release v-if="modalPage === 'releases'"/>
               <zenshen v-if="modalPage === 'zenshen'"/>
-              <slip-shine v-if="modalPage === 'slipshine'"/>
             </main>
           </div>
         </div>
@@ -166,10 +241,7 @@
 <script>
 import {appWindow, LogicalSize} from '@tauri-apps/api/window'
 import {window} from "@tauri-apps/api";
-import PuzzleSound from '@/assets/puzzle.mp3'
 import {readDir, readTextFile, writeFile, writeTextFile} from "@tauri-apps/api/fs";
-import Splash from "@/views/GeometryDash/Splash";
-import Setup from "@/views/Setup";
 import Home from "@/views/Hyperbolus/About";
 import Release from "@/views/Hyperbolus/Release";
 import Settings from "@/views/Hyperbolus/Settings";
@@ -180,16 +252,12 @@ import {checkUpdate, installUpdate} from "@tauri-apps/api/updater";
 import {getName, getVersion} from "@tauri-apps/api/app";
 import {ask} from "@tauri-apps/api/dialog";
 import {relaunch} from "@tauri-apps/api/process";
-import ButtonRound from "@/components/ButtonRound";
 import Zenshen from "@/views/Hyperbolus/Zenshen";
 
 export default {
   components: {
     Zenshen,
-    ButtonRound,
     Updates,
-    Splash,
-    Setup,
     Home,
     Release,
     Settings,
@@ -201,7 +269,7 @@ export default {
       launchStage: 2,
 
       menuMode: 0,
-      pageName: 'Soundodger',
+      pageName: 'MelodyKit',
 
       modal: false,
       modalPage: '',
@@ -296,38 +364,6 @@ export default {
         document.getElementById('app').classList.toggle('dark')
       }
     },
-    async secretFunction(e, animate = false) {
-      if(!animate) {
-        this.secretWord += e.target.innerText.toLowerCase();
-        e.target.style.color = 'cyan';
-        setTimeout(() => {
-          e.target.style.color = '';
-        }, 7000);
-      }
-      if (this.secretWord.includes('superb') || animate) {
-        this.secretWord = '';
-        this.menuMode = 2;
-        this.config.debug = true;
-        await this.pause(5)
-        let tab = document.getElementById('devtab');
-        tab.style.transitionDuration = '1s';
-        tab.style.opacity = '0';
-        tab.style.backgroundColor = 'cyan';
-        tab.style.filter = 'blur(5px)';
-        tab.style.textShadow = '0 0 3px cyan, 0 0 3px cyan, 0 0 3px cyan';
-        tab.style.color = 'cyan';
-        setTimeout(() => {
-          tab.style.opacity = '1';
-          tab.style.filter = '';
-          tab.style.backgroundColor = '';
-          tab.style.color = '';
-          tab.style.textShadow = '0 0 0px transparent, 0 0 0px transparent, 0 0 0px transparent';
-        }, 1000);
-        let audio = new Audio(PuzzleSound);
-        audio.volume = 0.3;
-        await audio.play();
-      }
-    },
     async ctrl(mode) {
       switch(mode) {
         case 0:
@@ -345,48 +381,6 @@ export default {
           break;
       }
     },
-    toggleVault() {
-      let el = document.getElementById('vault');
-      let audio = document.getElementById('vault_audio');
-      audio.volume = 0.8;
-      let opt = el.classList.contains('_bounce-in-top');
-      el.classList.toggle('_bounce-in-top');
-      if(opt) {
-        el.classList.add('pointer-events-none')
-        setTimeout(() => el.style.transform = 'translateY(-100vh)', 10);
-        setTimeout(() => el.classList.add('opacity-0'), 400);
-        audio.pause();
-        audio.currentTime = 0;
-      } else {
-        el.classList.remove('opacity-0');
-        el.classList.remove('pointer-events-none');
-        el.style.transform = 'translateY(0)';
-        audio.play();
-      }
-    },
-    toggleFeedback() {
-      
-      let el = document.getElementById('feedback');
-      let opt = el.classList.contains('opacity-0');
-      if(opt) {
-        el.classList.remove('opacity-0');
-        el.classList.remove('pointer-events-none');
-        el.style.transform = 'translateX(0)';
-      } else {
-        el.classList.add('pointer-events-none');
-        setTimeout(() => el.style.transform = 'translateX(100vw)', 10);
-        setTimeout(() => el.classList.add('opacity-0'), 400);
-      }
-    },
-    answerVault() {
-      if(this.$refs.vaultinput.value.toLowerCase() === 'superb') {
-        this.toggleVault();
-        this.secretFunction(null, true);
-      } else {
-        this.$refs.vaultinput.value = '';
-      }
-
-    },
     back() {
       if (document.getElementById('vault').classList.contains('_bounce-in-top')) {
         this.toggleVault();
@@ -399,60 +393,15 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 1px;
+  height: 1px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0);
+  background: rgba(255, 255, 255, 1);
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0);
-}
-@keyframes bounce-in-top {
-  0% {
-    transform: translateY(-500px);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  38% {
-    transform: translateY(0);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  55% {
-    transform: translateY(-65px);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  72% {
-    transform: translateY(0);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  81% {
-    transform: translateY(-28px);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  90% {
-    transform: translateY(0);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  95% {
-    transform: translateY(-8px);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  100% {
-    transform: translateY(0);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-}
-._bounce-in-top {
-  animation: bounce-in-top 0.85s both;
+  background: rgba(0, 0, 0, 1);
 }
 </style>

@@ -27,6 +27,7 @@
           <pill-label alt>zmx</pill-label>
           <pill-label alt>ConfiG</pill-label>
           <pill-label alt>all the testers</pill-label>
+          <pill-label alt>soundiscord</pill-label>
           <pill-label alt>gdp discord</pill-label>
           <span>&</span>
           <pill-label alt>you! <span class="text-red-500">&hearts;</span></pill-label>

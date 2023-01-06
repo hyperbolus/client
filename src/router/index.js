@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    redirect: '/gd'
+    redirect: '/sd'
   },
   {
     path: '/gd/editor',

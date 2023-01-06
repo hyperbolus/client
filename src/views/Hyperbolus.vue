@@ -7,6 +7,6 @@
 import LayoutStandard from "@/components/LayoutStandard";
 export default {
   name: 'Hyperbolus',
-  components: {LayoutStandard}
+  components: {LayoutStandard},
 }
 </script>

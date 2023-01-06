@@ -1,5 +1,5 @@
 <template>
-  <select v-model="value" class="h-full rounded border border-neutral-400 dark:border-neutral-700 dark:bg-neutral-900" multiple>
+  <select v-model="value" class="h-full rounded border border-neutral-400 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900" multiple>
     <slot/>
   </select>
 </template>

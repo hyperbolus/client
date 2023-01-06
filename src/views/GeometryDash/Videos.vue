@@ -82,7 +82,7 @@ export default {
     getVideos(category = 0) {
       this.loading = true;
       this.videos = [];
-      fetch('http://dashgd.test/api/videos?category=' + category + '&published=' + !this.$root.$data.config.showUnpublishedVideos)
+      fetch(this.$root.config.server+'api/videos?category=' + category + '&published=' + !this.$root.$data.config.showUnpublishedVideos)
           .then(res => res.json())
           .then(data => {
             this.videos = data.data;
@@ -95,7 +95,7 @@ export default {
         level_id: this.form.level_id,
         account_id: this.form.account_id,
       });
-      fetch('http://dashgd.test/api/videos?' + params, {
+      fetch(this.$root.config.server+'api/videos?' + params, {
         method: 'POST'
       }).then(res => res.json()).then(data => {
         this.getVideos();
@@ -104,14 +104,14 @@ export default {
       })
     },
     setPublished(index, published) {
-      fetch('http://dashgd.test/api/videos/' + this.videos[index].id + '?published=' + published + '&key=' + this.$root.$data.config.moderationKey, {
+      fetch(this.$root.config.server+'api/videos/' + this.videos[index].id + '?published=' + published + '&key=' + this.$root.$data.config.moderationKey, {
         method: 'PATCH'
       }).then(res => res.json()).then(() => {
         this.videos[index].published = published.toString();
       })
     },
     deleteVideo(index) {
-      fetch('http://dashgd.test/api/videos/' + this.videos[index].id + '?key=' + this.$root.$data.config.moderationKey, {
+      fetch(this.$root.config.server+'api/videos/' + this.videos[index].id + '?key=' + this.$root.$data.config.moderationKey, {
         method: 'DELETE'
       }).then(res => res.json()).then(() => {
         this.videos.splice(index, 1)
